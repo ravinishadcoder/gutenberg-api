@@ -11,7 +11,21 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import {RichText, useBlockProps } from '@wordpress/block-editor';
+import {RichText,
+	 InspectorControls,
+	 ColorPalette,
+	 MediaUpload,
+	 InnerBlocks,
+	 AlignmentToolbar,
+	 BlockControls
+	 } from '@wordpress/block-editor';
+
+import {
+	IconButton,
+	PanelBody,
+	RangeControl
+	
+		} from "@wordpress/components";
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -30,29 +44,105 @@ import './editor.scss';
  * @return {WPElement} Element to render.
  */
 
+const ALLOWED_BLOCKS=['core/button'];
 
 export default function Edit({attributes,setAttributes}) {
-	const {title,body}=attributes;
+	const {title,
+		   body,
+		   alignment,
+		   titleColor,
+		   backgroundImage,
+		   overlayColor,
+		   overlayOpacity
+		}=attributes;
 	function onChangeTitle(newTitle){
      setAttributes({title:newTitle});
 	}
 	function onChangeBody(newBody){
      setAttributes({body:newBody});
 	}
-	return (
-		[
-		   <div>
+	function onTitleColorChange(newColor){
+		setAttributes({titleColor:newColor});
+	}
+	function onSelectImage(newImage){
+		setAttributes({backgroundImage:newImage.sizes.full.url});
+	}
+	function onOverlayColorChange(newColor){
+		setAttributes({overlayColor:newColor});
+	}
+	function onOverlayOpacityChange(newOpacity){
+		setAttributes({overlayOpacity:newOpacity});
+	}
+	return[
+		<InspectorControls style={{marginBottom:'40px'}}>
+        <PanelBody title={'Font Color Settings'}>
+			<p><strong>Select a Title color:</strong></p>
+			<ColorPalette value={titleColor}
+			              onChange={onTitleColorChange}/>
+		</PanelBody>
+		<PanelBody title={'Background Image Settings'}>
+		<p><strong>Select a Background Image:</strong></p>
+		<MediaUpload 
+		  onSelect={onSelectImage}
+		  type="image"
+		  value={backgroundImage}
+		  render={({open})=>{
+			return <IconButton
+			onClick={open}
+			icon="upload"
+			className='editor-media-placeholder__button'
+			>
+				Background Image
+			</IconButton>
+		  }}
+		  />
+		  <div style={{marginTop:"20px",marginBottom:"40px"}}>
+		  <p><strong>Overlay Color:</strong></p>
+		  <ColorPalette value={overlayColor}
+			            onChange={onOverlayColorChange}/>
+		  </div>
+		  <RangeControl
+		      label={"Overlay Opacity"}
+			  value={overlayOpacity}
+			  onChange={onOverlayOpacityChange}
+			  min={0}
+			  max={1}
+			  step={0.05}/>
+		</PanelBody>
+		</InspectorControls>,
+		   <div 
+		   className="cta-container" 
+		   style={{
+			backgroundImage:`url(${backgroundImage})`,
+			backgroundSize:'cover',
+			backgroundPosition:'center',
+			backgroundRepeat:'no-repeat'
+		   }}>
+			
+			<div className='cta-overlay' 
+			     style={{
+					background:overlayColor,opacity:overlayOpacity
+				 }}>
+            </div>
+			   {
+				<BlockControls>
+					<AlignmentToolbar value={alignment}/>
+				</BlockControls>
+			   }
 			<RichText key='editable'
 			          tagName='h2'
 					  placeholder='Your CTA title'
 					  value={title}
-					  onChange={onChangeTitle}/>
+					  onChange={onChangeTitle}
+					  style={{color:titleColor}} />
 			<RichText key='editable'
 			          tagName='p'
 					  placeholder='Your Description'
 					  value={body}
 					  onChange={onChangeBody}/>
+
+			<InnerBlocks allowedBlocks={ALLOWED_BLOCKS}/>
 		   </div>
-		]
-	);
+		];
+	
 }

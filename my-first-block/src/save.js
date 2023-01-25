@@ -4,7 +4,7 @@
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import {RichText, useBlockProps } from '@wordpress/block-editor';
+import { InnerBlocks, RichText, useBlockProps } from "@wordpress/block-editor";
 /**
  * The save function defines the way in which the different attributes should
  * be combined into the final markup, which is then serialized by the block
@@ -14,18 +14,34 @@ import {RichText, useBlockProps } from '@wordpress/block-editor';
  *
  * @return {WPElement} Element to render.
  */
-export default function save({attributes}) {
-	const {title,body}=attributes;
+export default function save({ attributes }) {
+	const {title,
+		body,
+		titleColor,
+		backgroundImage,
+		overlayColor,
+		overlayOpacity
+	 }=attributes;
 	return [
-		
-		<div>
-			
-			<RichText.Content tagName='h2'
-			                  value={title}/>
-			<RichText.Content tagName='p'
-			                  value={body}/>
-			
-		</div>
-		
+		<div className="cta-container" style={{
+			backgroundImage:`url(${backgroundImage})`,
+			backgroundSize:'cover',
+			backgroundPosition:'center',
+			backgroundRepeat:'no-repeat'
+		   }}>
+			<div className='cta-overlay' 
+			     style={{
+					background:overlayColor,opacity:overlayOpacity
+				 }}>
+
+			</div>
+			<RichText.Content
+				style={{ color: titleColor }}
+				tagName="h2"
+				value={title}
+			/>
+			<RichText.Content tagName="p" value={body} />
+			<InnerBlocks.Content/>
+		</div>,
 	];
 }

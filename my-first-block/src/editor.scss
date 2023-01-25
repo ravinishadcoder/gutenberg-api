@@ -7,3 +7,12 @@
 .wp-block-create-block-my-first-block {
 	border: 1px dotted #f00;
 }
+.cta-container{
+	position: relative;
+	z-index: 5;
+	.cta-overlay{
+	position: absolute;
+	inset: 0px;
+	z-index: -1;
+}
+}

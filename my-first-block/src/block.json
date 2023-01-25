@@ -13,5 +13,37 @@
 	"textdomain": "my-first-block",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
-	"style": "file:./style-index.css"
+	"style": "file:./style-index.css",
+	"attributes": {
+		"title":{
+			"type":"string",
+			"source": "html",
+			"selector": "h2"
+		},
+		"body":{
+			"type":"string",
+			"source": "html",
+			"selector": "p"
+		},
+		"titleColor":{
+			"type":"string",
+			"default":"black"
+		},
+		"backgroundImage":{
+         "type":"string",
+		 "default":null
+		},
+		"overlayColor":{
+			"type":"string",
+             "default":"white"
+		},
+		"overlayOpacity":{
+			"type":"number",
+			"default":0.3
+		},
+		"alignment":{
+			"type":"string",
+			"default":"none"
+		}
+	}
 }
