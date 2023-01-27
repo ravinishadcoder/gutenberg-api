@@ -1,0 +1,59 @@
+/**
+ * React hook that is used to mark the block wrapper element.
+ * It provides all the necessary props like the class name.
+ *
+ * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
+ */
+import { InnerBlocks, RichText, useBlockProps } from "@wordpress/block-editor";
+
+/**
+ * The save function defines the way in which the different attributes should
+ * be combined into the final markup, which is then serialized by the block
+ * editor into `post_content`.
+ *
+ * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#save
+ *
+ * @return {WPElement} Element to render.
+ */
+export default function save({ attributes }) {
+	const {
+		title,
+		body,
+		alignment,
+		titleColor,
+		backgroundImage,
+		overlayColor,
+		overlayOpacity,
+	} = attributes;
+	const blockProps = useBlockProps.save();
+	console.log("save.js",attributes)
+	return [
+		<div { ...blockProps }>
+		<div
+			className="cta-container"
+			
+			style={{
+				backgroundImage: `url(${backgroundImage})`,
+				backgroundSize: "cover",
+				backgroundPosition: "center",
+				backgroundRepeat: "no-repeat",
+			}}
+		>
+			<div
+				className="cta-overlay"
+				style={{
+					background: overlayColor,
+					opacity: overlayOpacity,
+				}}
+			></div>
+			<RichText.Content
+				style={{ color: titleColor, textAlign: alignment }}
+				tagName="h2"
+				value={title}
+			/>
+			<RichText.Content tagName="p" style={{ textAlign: alignment }} value={body} />
+			<InnerBlocks.Content />
+		</div>
+		</div>
+	];
+}
