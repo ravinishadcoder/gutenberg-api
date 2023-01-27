@@ -1,0 +1,18 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-create-block-my-first-block {
+}
+.cta-container{
+	position: relative;
+	z-index: 5;
+	.cta-overlay{
+	position: absolute;
+	inset: 0px;
+	z-index: -1;
+}
+}
