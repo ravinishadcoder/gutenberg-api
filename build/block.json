@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "create-block/price-table",
+  "version": "0.1.0",
+  "title": "Price Table",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "Example block scaffolded with Create Block tool.",
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "source": "html",
+      "selector": "h2"
+    },
+    "trialDays": {
+      "type": "string",
+      "source": "html",
+      "selector": "span"
+    },
+    "amount": {
+      "type": "string",
+      "default": "0"
+    },
+    "symbol": {
+      "type": "string",
+      "default": "$"
+    },
+    "description": {
+      "type": "string",
+      "source": "html",
+      "selector": "p"
+    },
+    "selectSize": {
+      "type": "string",
+      "default": "2rem"
+    },
+    "headerColor": {
+      "type": "string",
+      "default": "lightblue"
+    },
+    "toogleDeal": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "textdomain": "price-table",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}
