@@ -1,0 +1,44 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+ .wp-block-create-block-price-table {
+	background-color: #21759b;
+	color: #fff;
+	padding: 2px;
+}
+
+
+.price-table-container{
+	border: 1px solid blue;
+	width: 20rem;
+	height: fit-content;
+	padding: 10px;
+    text-align: center;
+	.price-table-days{
+		margin-top: -45px;
+		display: block
+	};
+	
+	.price-table-deals{
+     border: 1px solid blue;
+	 background-color: aqua;
+	 float: right;
+	 color: white;
+	 width: 84px;
+	};
+	.price-table-header{
+		padding: 1px;
+	};
+	.block-editor-block-list__block{
+		display: flex;
+		justify-content: center;
+	}
+}
+.parent{
+	display: inline-flex;
+    padding: 5px;
+}
