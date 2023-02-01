@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "create-block/my-first-block",
+  "version": "0.1.0",
+  "title": "My First Block",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "Example block scaffolded with Create Block tool.",
+  "attributes": {
+    "message": {
+      "type": "string",
+      "source": "html",
+      "selector": "h1,h2,h3,h4",
+      "default": "Default message"
+    },
+    "headingTag": {
+      "type": "string",
+      "default": "h2"
+    }
+  },
+  "supports": {
+    "html": true
+  },
+  "textdomain": "my-first-block",
+  "editorScript": "file:./index.js",
+  "editorStyle": "wp-block-heading-editor",
+  "style": "wp-block-heading"
+}
