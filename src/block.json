@@ -12,9 +12,13 @@
 	},
 	"attributes": {
 		"title": {
-			"type": "string",
+			"type":"string",
 			"source": "html",
-			"selector": "h2"
+			"selector": "h1,h2,h3,h4"
+		},
+		"titleTag": {
+			"type": "string",
+			"default": "h2"
 		},
 		"trialDays": {
 			"type": "string",

@@ -4,7 +4,7 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-create-block-price-table {
+ .wp-block-create-block-price-table {
 	border: 1px dotted #f00;
 }
 
@@ -28,5 +28,14 @@
 	};
 	.price-table-header{
 		padding: 1px;
-	}
+	};
+	.block-editor-block-list__block{
+		display: flex;
+		justify-content: center;
+	};
+	
+}
+.parent{
+	display: inline-flex;
+    padding: 5px;
 }

@@ -26,11 +26,20 @@ import { useBlockProps } from "@wordpress/block-editor";
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
 import "./editor.scss";
-import { PanelBody } from "@wordpress/components";
-import { TextControl } from "@wordpress/components";
+import {
+	PanelBody,
+	TextControl,
+	ColorPalette,
+	ToggleControl,
+} from "@wordpress/components";
+
 import { MyFontSizePicker } from "./fontPicker";
-import { ColorPalette } from "@wordpress/components";
-import { ToggleControl } from "@wordpress/components";
+
+import {
+	__experimentalToggleGroupControl as ToggleGroupControl,
+	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
+} from "@wordpress/components";
+
 const ALLOWED_BLOCKS = ["core/button"];
 /**
  * The edit function describes the structure of your block in the context of the
@@ -43,6 +52,7 @@ const ALLOWED_BLOCKS = ["core/button"];
 export default function Edit({ attributes, setAttributes }) {
 	const {
 		title,
+		titleTag,
 		trialDays,
 		amount,
 		toogleDeal,
@@ -72,6 +82,18 @@ export default function Edit({ attributes, setAttributes }) {
 					fontSize={selectSize}
 					onChangeFontSize={(newSize) => setAttributes({ selectSize: newSize })}
 				/>
+				<ToggleGroupControl
+					__nextHasNoMarginBottom
+					isBlock
+					value={titleTag}
+					label="Select Title Tag"
+					onChange={(value) => setAttributes({ titleTag: value })}
+				>
+					<ToggleGroupControlOption label="H1" value="h1" />
+					<ToggleGroupControlOption label="H2" value="h2" />
+					<ToggleGroupControlOption label="H3" value="h3" />
+					<ToggleGroupControlOption label="H4" value="h4" />
+				</ToggleGroupControl>
 			</PanelBody>
 			<PanelBody title={"Background Color Settings"}>
 				<p>
@@ -95,42 +117,43 @@ export default function Edit({ attributes, setAttributes }) {
 				/>
 			</PanelBody>
 		</InspectorControls>,
-		
-		<div className="price-table-container">
-			{toogleDeal&&<div className="price-table-deals">Best Deal</div>}
-			<div
-				style={{ backgroundColor: headerColor }}
-				className="price-table-header"
-			>
-				<RichText
-					key="editable"
-					tagName="h2"
-					placeholder="card title"
-					value={title}
-					onChange={(newTitle) => setAttributes({ title: newTitle })}
-				/>
+		<div className="parent">
+			<div className="price-table-container">
+				{toogleDeal && <div className="price-table-deals">Best Deal</div>}
+				<div
+					style={{ backgroundColor: headerColor }}
+					className="price-table-header"
+				>
+					<RichText
+						key="editable"
+						tagName={titleTag}
+						placeholder="card title"
+						value={title}
+						onChange={(newTitle) => setAttributes({ title: newTitle })}
+					/>
 
-				<RichText
-					key="editable"
-					tagName="span"
-					className="price-table-days"
-					placeholder="trail days"
-					value={trialDays}
-					style={{ textAlign: "center" }}
-					onChange={(value) => setAttributes({ trialDays: value })}
-				/>
-				<h2 style={{ fontSize: selectSize }}>{symbol + amount}</h2>
+					<RichText
+						key="editable"
+						tagName="span"
+						className="price-table-days"
+						placeholder="trail days"
+						value={trialDays}
+						style={{ textAlign: "center" }}
+						onChange={(value) => setAttributes({ trialDays: value })}
+					/>
+					<h2 style={{ fontSize: selectSize }}>{symbol + amount}</h2>
+				</div>
+				<div className="price-table-body">
+					<RichText
+						key="editable"
+						tagName="p"
+						placeholder="add description"
+						value={description}
+						onChange={(newDes) => setAttributes({ description: newDes })}
+					/>
+				</div>
+				<InnerBlocks allowedBlocks={ALLOWED_BLOCKS} />
 			</div>
-			<div className="price-table-body">
-				<RichText
-					key="editable"
-					tagName="p"
-					placeholder="add description"
-					value={description}
-					onChange={(newDes) => setAttributes({ description: newDes })}
-				/>
-			</div>
-			<InnerBlocks allowedBlocks={ALLOWED_BLOCKS} />
 		</div>,
 	];
 }

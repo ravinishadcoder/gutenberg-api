@@ -19,6 +19,7 @@ import { Card } from "@wordpress/components";
 export default function save({ attributes }) {
 	const {
 		title,
+		titleTag,
 		trialDays,
 		amount,
 		toogleDeal,
@@ -29,13 +30,14 @@ export default function save({ attributes }) {
 	} = attributes;
 	// console.log("save", attributes);
 	return (
+		<div className="parent">
 		<div className="price-table-container">
 			{toogleDeal&&<div className="price-table-deals">Best Deal</div>}
 			<div
 				style={{ backgroundColor: headerColor }}
 				className="price-table-header"
 			>
-				<RichText.Content tagName="h2" value={title} />
+				<RichText.Content tagName={titleTag} value={title} />
 
 				<RichText.Content
 					tagName="span"
@@ -50,6 +52,7 @@ export default function save({ attributes }) {
 				<RichText.Content tagName="p" value={description} />
 			</div>
 			<InnerBlocks.Content />
+		</div>
 		</div>
 	);
 }
